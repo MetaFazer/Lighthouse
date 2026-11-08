@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+/* Night sea: one dark field, one lamp. See DESIGN.md. */
+:root {
+  color-scheme: dark;
+  --ground: #080b11;
+  --surface: #0e121a;
+  --raised: #151a24;
+  --rule: #1b2130;
+  --rule-2: #262d3d;
+  --ink: #eceef2;
+  --soft: #a3aab8;
+  --dim: #7a8292;
+  --lamp: #f5b547;
+  --lamp-ink: #1a1206;
+  --lamp-wash: rgba(245, 181, 71, 0.1);
+  --steel: #8da4c4;
+  --bad: #f2685c;
+  --good: #4fc48a;
+  --sea: #1d2638;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  /* Workspace names kept so every page maps onto the new palette. */
+  --color-bg: var(--ground);
+  --color-bg-2: var(--surface);
+  --color-panel: var(--surface);
+  --color-panel-2: var(--raised);
+  --color-line: var(--rule);
+  --color-line-2: var(--rule-2);
+  --color-text: var(--ink);
+  --color-muted: var(--soft);
+  --color-faint: var(--dim);
+  --color-beam: var(--lamp);
+  --color-lamp: var(--lamp);
+  --color-sky: var(--steel);
+  --color-good: var(--good);
+  --color-warn: var(--lamp);
+  --color-bad: var(--bad);
+  --color-violet: var(--soft);
+  --font-sans: var(--font-geist), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Erode", "Iowan Old Style", Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html,
+body {
+  background: var(--ground);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--font-geist), system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--lamp);
+  color: var(--lamp-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--lamp);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.font-display {
+  font-family: "Erode", "Iowan Old Style", Georgia, serif;
+  font-feature-settings: "lnum";
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* Small sentence-case label: replaces the old tracked monospace caps. */
+.label {
+  font-size: 13px;
+  color: var(--dim);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+
+.card-hover {
+  transition: border-color 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
+}
+.card-hover:hover {
+  border-color: var(--rule-2);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Kept for old call sites: the lamp hue as flat text. */
+.beam-text {
+  color: var(--lamp);
+}
+
+input[type="range"] {
+  accent-color: var(--lamp);
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--rule-2);
+  border-radius: 8px;
+}
+
+.recharts-cartesian-grid line {
+  stroke: var(--rule) !important;
+}
+.recharts-text {
+  fill: var(--dim) !important;
+  font-size: 12px;
+}
+
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fadeup 0.6s var(--ease-out) both;
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
